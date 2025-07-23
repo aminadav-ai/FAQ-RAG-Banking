@@ -42,9 +42,9 @@ $ PYTHONPATH=./src python3 -m src.ingest       # → Indexed 25 Q&A pairs
 
 # 3. Chat in terminal
 $ PYTHONPATH=./src python3 -m src.query
-Q: How much does a same‑day wire cost?
+Q: What is a SEPA transfer?
 --- Answer ---
-Fees vary; typical U.S. retail banks charge between $20–35 per outgoing domestic wire.
+SEPA (Single Euro Payments Area) is a low‑cost euro‑only transfer scheme used across the EU, EEA and select partners; SEPA Credit Transfers usually settle next business day and cost €0–1 for retail customers.
 ```
 
 Run automated tests anytime:
