@@ -24,9 +24,7 @@ Below are fresh screenshots from the current build.
 
 | Batch test | Interactive chat |
 | ---------- | ---------------- |
-|            |                  |
-
-*(Place the two PNG files in* **assets/** *before pushing.)*
+| ![Batch test](assets/screenshot_tests.png) | ![Interactive chat](assets/screenshot_cli.png) |
 
 ---
 
