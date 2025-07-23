@@ -60,7 +60,7 @@ Summary: 12/12 passed.
 
 ```
 .
-├── assets/               # demo screenshots used in README
+├── assets/                 # demo screenshots used in README
 ├── data/raw/               # Plain‑text banking FAQ files (English)
 ├── src/                    # All Python modules
 │   ├── ingest.py           # Build / update Chroma vector store
