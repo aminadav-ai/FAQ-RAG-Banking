@@ -32,8 +32,8 @@ Below are fresh screenshots from the current build.
 
 ```bash
 # 1. Clone & enter
-$ git clone https://github.com/your‑handle/FAQ‑RAG.git
-$ cd FAQ‑RAG
+$ git clone https://github.com/your‑handle/FAQ‑RAG-Banking.git
+$ cd FAQ‑RAG-Banking
 
 # 2. Install & build index
 $ python3 -m venv venv && source venv/bin/activate
