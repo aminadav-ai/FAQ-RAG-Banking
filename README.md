@@ -1,4 +1,4 @@
-# FAQ‑RAG ― Banking Q&A Chatbot
+# FAQ‑RAG-Banking ― Banking Q&A Chatbot
 
 **Portfolio Highlight – AI / NLP / Retrieval‑Augmented Generation**
 
