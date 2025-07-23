@@ -82,7 +82,7 @@ Summary: 12/12 passed.
 
 ## 🙋‍♂️ Author & Context
 
-Created by **Aminadav** as part of my AI/NLP portfolio (prompt engineering & RAG pipelines). The screenshots and tests were run on Ubuntu 24 inside a virtual environment; no external APIs required.
+Created by **Aminadav** as part of my AI/NLP portfolio (prompt engineering & RAG pipelines). The screenshots and tests were run on Ubuntu 24 inside a virtual environment; OpenAI API optional (for alternative embeddings).
 
 Feel free to fork, star or open issues!
 
