@@ -52,7 +52,7 @@ Run automated tests anytime:
 ```bash
 $ PYTHONPATH=./src python3 -m tests.qa_check
 Summary: 12/12 passed.
-```
+```bash
 
 ### Using OpenAI Embeddings *(optional)*
 
