@@ -54,7 +54,6 @@ $ PYTHONPATH=./src python3 -m tests.qa_check
 Summary: 12/12 passed.
 ```
 
-
 ### Using OpenAI Embeddings *(optional)*
 
 ```bash
