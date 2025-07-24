@@ -52,7 +52,7 @@ Run automated tests anytime:
 ```bash
 $ PYTHONPATH=./src python3 -m tests.qa_check
 Summary: 12/12 passed.
-```bash
+```
 
 ### Using OpenAI Embeddings *(optional)*
 
@@ -60,7 +60,7 @@ Summary: 12/12 passed.
 export OPENAI_API_KEY="sk‑..."   # your key
 export USE_OPENAI=true            # switch backend
 PYTHONPATH=./src python3 -m src.ingest  # rebuild index with ada‑002 vectors
-```bash
+```
 
 ---
 
