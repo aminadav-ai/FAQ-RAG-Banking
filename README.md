@@ -61,6 +61,7 @@ export OPENAI_API_KEY="sk‑..."   # your key
 export USE_OPENAI=true            # switch backend
 PYTHONPATH=./src python3 -m src.ingest  # rebuild index with ada‑002 vectors
 ```bash
+
 ---
 
 ## 🏗️ Project Layout
