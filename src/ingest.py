@@ -1,4 +1,9 @@
-"""Ingest English banking FAQ docs into Chroma – 1 pair = 1 record."""
+"""Ingest Banking FAQ docs into Chroma – 1 pair = 1 record."""
+
+import shutil, os
+if os.getenv("CLEAR_DB")=="true":
+    shutil.rmtree("data/chroma_store", ignore_errors=True)
+
 import uuid, re
 from pathlib import Path
 import chromadb

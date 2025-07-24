@@ -13,9 +13,9 @@ if USE_OPENAI:
     MODEL = "text-embedding-ada-002"
 
     def embed(texts):
-        """Return list[vector] from OpenAI ada-002."""
-        rsp = openai.Embedding.create(model=MODEL, input=texts)
-        return [d["embedding"] for d in sorted(rsp["data"], key=lambda x: x["index"])]
+        client = openai.OpenAI()
+        rsp = client.embeddings.create(model=MODEL, input=texts)
+        return [d.embedding for d in rsp.data]
 else:
     _model = SentenceTransformer("all-MiniLM-L6-v2")
 
