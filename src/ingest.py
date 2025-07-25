@@ -13,7 +13,19 @@ from src.utils_text import normalize
 from src.embeddings import embed
 
 DATA_DIR = Path("data/raw")
-client     = chromadb.PersistentClient(path=CHROMA_DIR)
+
+from chromadb.config import Settings
+
+settings = Settings(
+    chroma_db_impl="duckdb+parquet",      # <-- use embedded DuckDB+Parquet
+    persist_directory=CHROMA_DIR,
+    anonymized_telemetry=False
+)
+
+client = chromadb.PersistentClient(
+    path=CHROMA_DIR,
+    settings=settings
+)
 collection = client.get_or_create_collection("banking_faq")
 
 PAIR_RE = re.compile(r"\n\s*\n")          
