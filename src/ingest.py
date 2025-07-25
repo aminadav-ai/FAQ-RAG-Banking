@@ -1,15 +1,16 @@
 """Ingest Banking FAQ docs into Chroma – 1 pair = 1 record."""
 
 import shutil, os
+from src.config import CHROMA_DIR
+
 if os.getenv("CLEAR_DB")=="true":
-    shutil.rmtree("data/chroma_store", ignore_errors=True)
+    shutil.rmtree(Path(CHROMA_DIR), ignore_errors=True)
 
 import uuid, re
 from pathlib import Path
 import chromadb
-from config import CHROMA_DIR
-from utils_text import normalize
-from embeddings import embed
+from src.utils_text import normalize
+from src.embeddings import embed
 
 DATA_DIR = Path("data/raw")
 client     = chromadb.PersistentClient(path=CHROMA_DIR)

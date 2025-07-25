@@ -1,37 +1,56 @@
-"""FastAPI layer for FAQ‑RAG‑Banking.
+import logging
+logger = logging.getLogger("uvicorn.error")
 
-Run locally:
-    uvicorn src.api:app --reload --host 0.0.0.0 --port 8000
+# …later, instead of print():
+logger.info("Test logging from api.py")
 
-Endpoints:
-    GET /ask?q="your question here"  → { "question": ..., "answer": ... }
+import os
+from pathlib import Path
+from src.config import CHROMA_DIR
 
-Uses the same vector store + embedding backend as the CLI.
-"""
+chroma_path = Path(CHROMA_DIR)
+files = list(chroma_path.glob("*"))  # рекурсивный обход
 
+print(f"[debug] CHROMA_DIR: {chroma_path}")
+for f in files:
+    print("   ┗", f)
+
+has_index = any("sqlite" in f.suffix for f in files)
+
+if not has_index:
+    print("[INFO] No index found → running ingest...")
+    import src.ingest
+else:
+    print("[INFO] Index exists → skipping ingest.")
+    
+from pydantic import BaseModel
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
-from query import fetch_answer   # re‑use existing helper
+from src.query import fetch_answer
 
 app = FastAPI(title="FAQ‑RAG‑Banking API", version="1.0")
 
-# Allow localhost testing and simple public demos; tighten in prod.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_methods=["GET"],
-    allow_headers=["*"]
+    allow_methods=["GET", "POST"],   
+    allow_headers=["*"],
 )
 
+class Question(BaseModel):
+    question: str
 
-@app.get("/", tags=["health"])
-async def root():
-    """Health‑check route."""
-    return {"status": "ok"}
+class Answer(BaseModel):
+    question: str
+    answer: str
 
-
-@app.get("/ask", tags=["qa"])
+@app.get("/ask", response_model=Answer, tags=["qa"])
 async def ask(q: str = Query(..., description="User banking question")):
-    """Return a deterministic answer from the vector store."""
-    answer = fetch_answer(q) or "No matching answer in knowledge base."
-    return {"question": q, "answer": answer}
+    ans = fetch_answer(q) or "No matching answer in knowledge base."
+    return {"question": q, "answer": ans}
+
+@app.post("/query", response_model=Answer, tags=["qa"])
+async def query(body: Question):
+    ans = fetch_answer(body.question) or "No matching answer in knowledge base."
+    return {"question": body.question, "answer": ans}
+

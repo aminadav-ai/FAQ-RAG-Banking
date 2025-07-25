@@ -7,6 +7,7 @@
 #   USE_OPENAI=true make ingest   # ingest with ada‑002
 #   make docker-build    # build container
 #   make docker-run      # run container interactively
+#   make api             # run fastAPI
 # ------------------------------------------------
 
 PYTHON = python3
@@ -22,7 +23,8 @@ help:
 	echo "  run           – CLI chat (MiniLM)" && \
 	echo "  run-openai    – CLI chat with OpenAI embeddings" && \
 	echo "  docker-build  – build Docker image '$(IMG)'" && \
-	echo "  docker-run    – run container interactively"
+	echo "  docker-run    – run container interactively" && \
+	echo "  api           - run fastAPI"
 
 ingest:
 	$(PYPATH) $(PYTHON) -m src.ingest
@@ -41,3 +43,7 @@ docker-build:
 
 docker-run:
 	docker run -it $(IMG)
+	
+api:
+	$(PYPATH) uvicorn src.api:app --reload --host 0.0.0.0 --port 8000
+

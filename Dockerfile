@@ -14,14 +14,21 @@ WORKDIR /app
 
 # ---------- install runtime deps ----------
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+
+#RUN pip install --no-cache-dir -r requirements.txt
+RUN --mount=type=cache,target=/root/.cache/pip \
+    pip install --upgrade pip \
+ && pip install --no-cache-dir --prefer-binary -r requirements.txt
 
 # ---------- copy source ----------
 COPY . .
 
 # ---------- defaults ----------
-ENV USE_OPENAI=false OPENAI_API_KEY=""
+ENV USE_OPENAI=false
 
 # Build vector store on first container start (if missing), then start CLI chat.
 # In production you might replace this with API startup (uvicorn).
-CMD bash -c "PYTHONPATH=./src python -m src.ingest && PYTHONPATH=./src python -m src.query"
+#CMD bash -c "PYTHONPATH=./src python3 -m src.ingest && PYTHONPATH=./src python3 -m src.query"
+
+EXPOSE 8000
+CMD ["uvicorn", "src.api:app", "--host", "0.0.0.0", "--port", "8000", "--log-level", "info"]
