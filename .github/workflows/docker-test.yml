@@ -55,8 +55,7 @@ jobs:
         run: |
           curl --fail http://localhost:8000/docs || (echo "❌ API is not responding" && exit 1)
 
-      - name: 🐳 Show container logs if API fails
-        if: failure()
+      - name: 🐳 Show container logs
         run: docker logs faq-test
 
       - name: 🧹 Stop container

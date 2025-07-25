@@ -1,6 +1,7 @@
 # FAQ‑RAG-Banking ― Banking Q&A Chatbot
 ![CI](https://github.com/aminadav-ai/FAQ-RAG-Banking/actions/workflows/tests.yml/badge.svg)
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Docker CI](https://github.com/aminadav-ai/FAQ-RAG-Banking/actions/workflows/docker-test.yml/badge.svg)
 
 **Portfolio Highlight – AI / NLP / Retrieval‑Augmented Generation**
 

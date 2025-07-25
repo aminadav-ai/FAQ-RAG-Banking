@@ -9,7 +9,7 @@ from pathlib import Path
 from src.config import CHROMA_DIR
 
 chroma_path = Path(CHROMA_DIR)
-files = list(chroma_path.glob("*"))  # рекурсивный обход
+files = list(chroma_path.glob("*"))  
 
 print(f"[debug] CHROMA_DIR: {chroma_path}")
 for f in files:
