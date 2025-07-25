@@ -13,7 +13,7 @@ jobs:
       chromadb:
         image: ghcr.io/chroma-core/chroma:latest
         ports:
-          - 8000:8000
+          - 8001:8000
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python

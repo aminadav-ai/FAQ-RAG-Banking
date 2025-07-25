@@ -14,7 +14,7 @@ from src.embeddings import embed
 
 DATA_DIR = Path("data/raw")
 
-client = chromadb.HttpClient(host="localhost", port=8000)
+client = chromadb.HttpClient(host="localhost", port=8001)
 collection = client.get_or_create_collection("banking_faq")
 
 PAIR_RE = re.compile(r"\n\s*\n")          

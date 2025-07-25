@@ -3,7 +3,7 @@ from src.config import CHROMA_DIR
 from src.embeddings import embed
 from src.utils_text import normalize
 
-client = chromadb.HttpClient(host="localhost", port=8000)
+client = chromadb.HttpClient(host="localhost", port=8001)
 collection = client.get_or_create_collection("banking_faq")
 
 def fetch_answer(question: str):
