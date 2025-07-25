@@ -8,13 +8,17 @@ if os.getenv("CLEAR_DB")=="true":
 
 import uuid, re
 from pathlib import Path
+
 import chromadb
 from src.utils_text import normalize
 from src.embeddings import embed
 
 DATA_DIR = Path("data/raw")
 
-client = chromadb.HttpClient(host="localhost", port=8001)
+client = chromadb.HttpClient(
+    host=os.getenv("CHROMA_HOST", "localhost"),
+    port=int(os.getenv("CHROMA_PORT", "8001"))
+)
 collection = client.get_or_create_collection("banking_faq")
 
 PAIR_RE = re.compile(r"\n\s*\n")          

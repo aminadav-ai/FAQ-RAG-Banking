@@ -1,27 +1,29 @@
+version: "3.8"
+
 services:
   faq-api:
     build: .
+    container_name: faq-api
     ports:
-      - "8000:8000"  # твой FastAPI API на этом порту
-    volumes:
-      - chroma_data:/data/chroma
-    environment:
-      - USE_OPENAI=false
+      - "8000:8000"  # FastAPI наружу
     depends_on:
       - chromadb
+    volumes:
+      - .:/app
     command: >
-      bash -c "uvicorn src.api:app --host 0.0.0.0 --port 8000"
+      uvicorn src.api:app --host 0.0.0.0 --port 8000
+    environment:
+      - CHROMA_HOST=chromadb
+      - CHROMA_PORT=8000
 
   chromadb:
-    image: chromadb/chroma
+    image: ghcr.io/chroma-core/chroma:latest
     container_name: chromadb-server
     ports:
-      - "8001:8000"  # Внешний порт 8001 → внутренний 8000
+      - "8001:8000"  # наружу (host:8001) → внутрь (container:8000)
     volumes:
-      - chroma_data:/chroma/.chroma
+      - ./chroma-data:/data
     environment:
       - IS_PERSISTENT=TRUE
-
-volumes:
-  chroma_data:
+    restart: unless-stopped
 
