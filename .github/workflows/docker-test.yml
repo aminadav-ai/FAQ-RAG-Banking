@@ -9,7 +9,11 @@ on:
 jobs:
   docker-test:
     runs-on: ubuntu-latest
-
+    services:
+      chromadb:
+        image: ghcr.io/chroma-core/chroma:latest
+        ports:
+          - 8001:8000
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v3
