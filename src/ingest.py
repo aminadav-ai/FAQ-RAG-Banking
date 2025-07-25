@@ -22,10 +22,7 @@ settings = Settings(
     anonymized_telemetry=False
 )
 
-client = chromadb.PersistentClient(
-    path=CHROMA_DIR,
-    settings=settings
-)
+client = chromadb.Client(settings)
 collection = client.get_or_create_collection("banking_faq")
 
 PAIR_RE = re.compile(r"\n\s*\n")          
