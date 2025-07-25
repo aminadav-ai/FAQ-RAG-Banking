@@ -1,4 +1,9 @@
-data/chroma_store/
+venv/
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+.env
+data/
+chroma/
 

@@ -1,0 +1,35 @@
+name: Docker Build and Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  docker-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build Docker image
+      run: |
+        docker compose build
+
+    - name: Run container to test
+      run: |
+        docker compose up -d
+        sleep 5  # wait for the server to start
+
+    - name: Test API response
+      run: |
+        curl --fail http://localhost:8000/docs || (echo "❌ API is not responding" && exit 1)
+
+    - name: Shutdown
+      run: docker compose down
+

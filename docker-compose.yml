@@ -1,0 +1,15 @@
+services:
+  faq-api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/data/chroma
+    environment:
+      - USE_OPENAI=false
+    command: >
+      bash -c "uvicorn src.api:app --host 0.0.0.0 --port 8000"
+
+volumes:
+  chroma_data:
+
