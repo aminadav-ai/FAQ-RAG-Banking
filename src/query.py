@@ -3,12 +3,10 @@ from src.config import CHROMA_DIR
 from src.embeddings import embed
 from src.utils_text import normalize
 
-from chromadb.config import Settings
-
-client = chromadb.Client(Settings(
+client = chromadb.Client(
     chroma_db_impl="duckdb+parquet",
     persist_directory="data/chroma"
-))
+)
 collection = client.get_or_create_collection("banking_faq")
 
 def fetch_answer(question: str):
