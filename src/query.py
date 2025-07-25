@@ -1,7 +1,7 @@
 import chromadb
-from config import CHROMA_DIR
-from embeddings import embed
-from utils_text import normalize
+from src.config import CHROMA_DIR
+from src.embeddings import embed
+from src.utils_text import normalize
 
 client = chromadb.PersistentClient(path=CHROMA_DIR)
 collection = client.get_or_create_collection("banking_faq")
@@ -25,6 +25,4 @@ def main():
         print("--- Answer ---")
         print(ans if ans else "No matching answer.")
 
-if __name__ == "__main__":
-    main()
 
