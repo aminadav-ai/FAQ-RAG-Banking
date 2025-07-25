@@ -5,13 +5,10 @@ from src.utils_text import normalize
 
 from chromadb.config import Settings
 
-settings = Settings(
-    chroma_db_impl="duckdb+parquet",      # <-- use embedded DuckDB+Parquet
-    persist_directory=CHROMA_DIR,
-    anonymized_telemetry=False
-)
-
-client = chromadb.Client(settings=settings)
+client = chromadb.Client(Settings(
+    chroma_db_impl="duckdb+parquet",
+    persist_directory="data/chroma"
+))
 collection = client.get_or_create_collection("banking_faq")
 
 def fetch_answer(question: str):
