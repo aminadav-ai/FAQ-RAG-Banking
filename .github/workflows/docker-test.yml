@@ -13,17 +13,17 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Wake up ChromaDB server
+      - name: Wait for ChromaDB server
         run: |
-          echo "Waking up ChromaDB server..."
-          for i in {1..10}; do
-            status=$(curl -s -o /dev/null -w "%{http_code}" https://chroma-server-cydq.onrender.com)
-            if [ "$status" = "200" ]; then
-              echo "ChromaDB is awake!"
+          echo "Waiting for ChromaDB /api/v2/heartbeat..."
+          for i in {1..20}; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" https://chroma-server-cydq.onrender.com/api/v2/heartbeat)
+            echo "Try $i: HTTP $code"
+            if [ "$code" = "200" ]; then
+              echo "ChromaDB is ready."
               break
-            else
-              echo "Still waking up... ($i)"
-              sleep 6
             fi
+            sleep 5
           done        
       - name: Install Docker Compose
         run: |
