@@ -11,20 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Wake up ChromaDB server
+      - name: Wait for ChromaDB server
         run: |
-          echo "Waking up ChromaDB server with response output..."
-          for i in {1..10}; do
-            echo "--- Try $i ---"
-            curl -v https://chroma-server-cydq.onrender.com || true
-            status=$(curl -s -o /dev/null -w "%{http_code}" https://chroma-server-cydq.onrender.com)
-            echo "HTTP Status: $status"
-            if [ "$status" = "200" ]; then
-              echo "ChromaDB is ready!"
-            break
-          fi
-          sleep 10
-          done      
+          echo "Waiting for ChromaDB /api/v2/heartbeat..."
+          for i in {1..20}; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" https://chroma-server-cydq.onrender.com/api/v2/heartbeat)
+            echo "Try $i: HTTP $code"
+            if [ "$code" = "200" ]; then
+              echo "ChromaDB is ready."
+              break
+            fi
+            sleep 5
+          done     
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
