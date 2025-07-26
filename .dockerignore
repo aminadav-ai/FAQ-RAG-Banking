@@ -4,5 +4,6 @@ __pycache__/
 *.pyo
 *.pyd
 .env
-data/chroma/
+chroma-data/
+
 
