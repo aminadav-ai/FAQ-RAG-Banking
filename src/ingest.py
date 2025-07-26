@@ -11,9 +11,11 @@ from src.embeddings import embed
 DATA_DIR = Path("data/raw")
 
 client = chromadb.HttpClient(
-    host=os.getenv("CHROMA_HOST", "localhost"),
-    port=int(os.getenv("CHROMA_PORT", "8001"))
+    host="chroma-server-cydq.onrender.com",
+    port=443,
+    ssl=True
 )
+
 collection = client.get_or_create_collection("banking_faq")
 
 PAIR_RE = re.compile(r"\n\s*\n")          

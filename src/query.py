@@ -4,8 +4,9 @@ from src.embeddings import embed
 from src.utils_text import normalize
 
 client = chromadb.HttpClient(
-    host=os.getenv("CHROMA_HOST", "localhost"),
-    port=int(os.getenv("CHROMA_PORT", "8001"))
+    host="chroma-server-cydq.onrender.com",
+    port=443,
+    ssl=True
 )
 collection = client.get_or_create_collection("banking_faq")
 

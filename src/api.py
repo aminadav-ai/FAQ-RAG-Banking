@@ -18,7 +18,7 @@ app = FastAPI(title="FAQ‑RAG‑Banking API", version="1.0")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://aminadav-ai.github.io"],
     allow_methods=["GET", "POST"],   
     allow_headers=["*"],
 )
