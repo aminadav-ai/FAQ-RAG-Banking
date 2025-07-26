@@ -46,6 +46,9 @@ jobs:
             -H "Content-Type: application/json" \
             -d '{"question": "What is APY?"}' \
             -w "\nHTTP Code: %{http_code}\n"
+            
+      - name: Show Docker logs
+        run: docker-compose logs            
 
       - name: Shut down containers
         if: always()
