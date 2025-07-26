@@ -12,7 +12,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      - name: Wake up ChromaDB server
       - name: Wait for ChromaDB server
         run: |
           echo "Waiting for ChromaDB /api/v2/heartbeat..."
