@@ -42,11 +42,10 @@ jobs:
 
       - name: Send test GET or POST request to FastAPI
         run: |
-          echo "Testing GET..."
-          curl -s -X GET http://localhost:8000/your-endpoint || exit 1
-
-          # Пример POST:
-          # curl -s -X POST http://localhost:8000/query -H "Content-Type: application/json" -d '{"question": "hello"}'
+          curl -X POST http://localhost:8000/query \
+            -H "Content-Type: application/json" \
+            -d '{"question": "What is APY?"}' \
+            -w "\nHTTP Code: %{http_code}\n"
 
       - name: Shut down containers
         if: always()
