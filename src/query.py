@@ -1,6 +1,5 @@
 import os
 import chromadb
-from src.config import CHROMA_DIR
 from src.embeddings import embed
 from src.utils_text import normalize
 
@@ -27,6 +26,6 @@ def main():
             break
         ans = fetch_answer(q)
         print("--- Answer ---")
-        print(ans if ans else "No matching answer.")
+        print(ans if ans else "No matching answer")
 
 

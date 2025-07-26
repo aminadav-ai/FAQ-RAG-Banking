@@ -1,11 +1,6 @@
 """Ingest Banking FAQ docs into Chroma – 1 pair = 1 record."""
 
 import shutil, os
-from src.config import CHROMA_DIR
-
-if os.getenv("CLEAR_DB")=="true":
-    shutil.rmtree(Path(CHROMA_DIR), ignore_errors=True)
-
 import uuid, re
 from pathlib import Path
 
@@ -44,7 +39,7 @@ if docs:
                    metadatas=metas,
                    ids=ids,
                    embeddings=embed(docs))
-    print(f"Indexed {len(docs)} Q&A pairs -> {CHROMA_DIR}")
+    print(f"Indexed {len(docs)} Q&A pairs")
 else:
-    print("No files found in data/raw/")
+    print(f"No files found in {DATA_DIR}")
 

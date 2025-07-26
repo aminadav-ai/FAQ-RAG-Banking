@@ -6,22 +6,8 @@ logger.info("Test logging from api.py")
 
 import os
 from pathlib import Path
-from src.config import CHROMA_DIR
 
-chroma_path = Path(CHROMA_DIR)
-files = list(chroma_path.glob("*"))  
-
-print(f"[debug] CHROMA_DIR: {chroma_path}")
-for f in files:
-    print("   ┗", f)
-
-has_index = any("sqlite" in f.suffix for f in files)
-
-if not has_index:
-    print("[INFO] No index found → running ingest...")
-    import src.ingest
-else:
-    print("[INFO] Index exists → skipping ingest.")
+import src.ingest
     
 from pydantic import BaseModel
 from fastapi import FastAPI, Query
