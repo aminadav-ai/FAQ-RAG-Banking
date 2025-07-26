@@ -12,7 +12,19 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        
+      - name: Wake up ChromaDB server
+        run: |
+          echo "Waking up ChromaDB server..."
+          for i in {1..10}; do
+            status=$(curl -s -o /dev/null -w "%{http_code}" https://chroma-server-cydq.onrender.com)
+            if [ "$status" = "200" ]; then
+              echo "ChromaDB is awake!"
+              break
+            else
+              echo "Still waking up... ($i)"
+              sleep 6
+            fi
+          done        
       - name: Install Docker Compose
         run: |
           sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose

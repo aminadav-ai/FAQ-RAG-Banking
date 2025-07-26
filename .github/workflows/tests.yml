@@ -9,13 +9,21 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    services:
-      chromadb:
-        image: ghcr.io/chroma-core/chroma:latest
-        ports:
-          - 8001:8000
     steps:
       - uses: actions/checkout@v3
+      - name: Wake up ChromaDB server
+        run: |
+          echo "Waking up ChromaDB server..."
+          for i in {1..10}; do
+            status=$(curl -s -o /dev/null -w "%{http_code}" https://chroma-server-cydq.onrender.com)
+            if [ "$status" = "200" ]; then
+              echo "ChromaDB is awake!"
+              break
+            else
+              echo "Still waking up... ($i)"
+              sleep 6
+            fi
+          done      
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
