@@ -1,7 +1,6 @@
 import logging
 logger = logging.getLogger("uvicorn.error")
-
-# …later, instead of print():
+logging.basicConfig(level=logging.DEBUG)
 logger.info("Test logging from api.py")
 
 #import os
@@ -14,7 +13,13 @@ from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 from src.query import fetch_answer
 
-app = FastAPI(title="FAQ‑RAG‑Banking API", version="1.0")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    logger.info("🚀 Lifespan startup")
+    yield
+    logger.info("🛑 Lifespan shutdown")
+    
+app = FastAPI(title="FAQ‑RAG‑Banking API", version="1.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,

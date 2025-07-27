@@ -29,4 +29,4 @@ ENV USE_OPENAI=false
 #CMD bash -c "PYTHONPATH=./src python3 -m src.ingest && PYTHONPATH=./src python3 -m src.query"
 
 EXPOSE 8000
-CMD ["uvicorn", "src.api:app", "--host", "0.0.0.0", "--port", "8000", "--log-level", "info"]
+CMD ["uvicorn", "src.api:app", "--host", "0.0.0.0", "--port", "8000", "--log-level", "debug"]
