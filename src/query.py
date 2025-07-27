@@ -13,7 +13,9 @@ client = chromadb.HttpClient(
     ssl=True
 )
 
-collection = client.get_or_create_collection("banking_faq")
+import os
+collection_name = os.getenv("COLLECTION_NAME", "my-dev-faq")
+collection = client.get_or_create_collection(collection_name)
 
 def fetch_answer(question: str):
     res = collection.query(

@@ -3,11 +3,6 @@ logger = logging.getLogger("uvicorn.error")
 logging.basicConfig(level=logging.DEBUG)
 logger.info("Test logging from api.py")
 
-#import os
-#from pathlib import Path
-
-#import src.ingest
-    
 from pydantic import BaseModel
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
@@ -24,7 +19,7 @@ app = FastAPI(title="FAQ‑RAG‑Banking API", version="1.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://aminadav-ai.github.io"],
+    allow_origins=["*"],
     allow_methods=["GET", "POST"],   
     allow_headers=["*"],
 )

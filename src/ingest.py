@@ -22,7 +22,8 @@ client = chromadb.HttpClient(
     ssl=True
 )
 
-collection = client.get_or_create_collection("banking_faq")
+collection_name = os.getenv("COLLECTION_NAME", "my-dev-faq")
+collection = client.get_or_create_collection(collection_name)
 
 PAIR_RE = re.compile(r"\n\s*\n")          
 
