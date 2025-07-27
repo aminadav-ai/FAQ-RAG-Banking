@@ -4,10 +4,10 @@ logger = logging.getLogger("uvicorn.error")
 # …later, instead of print():
 logger.info("Test logging from api.py")
 
-import os
-from pathlib import Path
+#import os
+#from pathlib import Path
 
-import src.ingest
+#import src.ingest
     
 from pydantic import BaseModel
 from fastapi import FastAPI, Query

@@ -13,12 +13,10 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 WORKDIR /app
 
 # ---------- install runtime deps ----------
-COPY requirements.txt .
+COPY requirements-docker.txt .
 
-#RUN pip install --no-cache-dir -r requirements.txt
-RUN --mount=type=cache,target=/root/.cache/pip \
-    pip install --upgrade pip \
- && pip install --no-cache-dir --prefer-binary -r requirements.txt
+RUN pip install --upgrade pip \
+ && pip install --no-cache-dir --prefer-binary -r requirements-docker.txt
 
 # ---------- copy source ----------
 COPY . .

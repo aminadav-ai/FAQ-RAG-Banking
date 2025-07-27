@@ -33,15 +33,6 @@ jobs:
       - name: Build and start services via docker-compose
         run: docker-compose up -d --build
 
-      - name: Wait for ChromaDB to be ready
-        run: |
-          echo "Waiting for ChromaDB..."
-          for i in {1..10}; do
-            curl -s http://localhost:8001/api/v2/heartbeat && break
-            echo "Retrying ChromaDB ($i)..."
-            sleep 3
-          done
-
       - name: Wait for FastAPI to be ready
         run: |
           echo "Waiting for FastAPI..."
