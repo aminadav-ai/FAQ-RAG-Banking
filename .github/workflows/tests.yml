@@ -21,7 +21,7 @@ jobs:
               echo "ChromaDB is ready."
               break
             fi
-            sleep 5
+            sleep 10
           done  
       - name: Wait for Render faq-api
         run: |
@@ -33,7 +33,7 @@ jobs:
               echo "faq-api is ready."
               break
             fi
-            sleep 5
+            sleep 10
           done          
       - name: Set up Python
         uses: actions/setup-python@v4

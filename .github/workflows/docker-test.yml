@@ -22,7 +22,7 @@ jobs:
               echo "ChromaDB is ready."
               break
             fi
-            sleep 5
+            sleep 10
           done        
       - name: Install Docker Compose
         run: |
@@ -42,7 +42,7 @@ jobs:
             sleep 3
           done
 
-      - name: Send test GET or POST request to FastAPI
+      - name: Send test POST request to FastAPI
         run: |
           curl -X POST http://localhost:8000/query \
             -H "Content-Type: application/json" \
