@@ -50,6 +50,7 @@ jobs:
             -w "\nHTTP Code: %{http_code}\n"
             
       - name: Show Docker logs
+        if: always()
         run: docker-compose logs            
 
       - name: Shut down containers
