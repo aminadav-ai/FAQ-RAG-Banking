@@ -30,11 +30,6 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
-      - name: Run ingestion (build vector store)
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          USE_OPENAI: 'false'
-        run: PYTHONPATH=./src python -m src.ingest
+          pip install -r requirements-local.txt
       - name: Run QA tests
         run: PYTHONPATH=./src python -m tests.qa_check

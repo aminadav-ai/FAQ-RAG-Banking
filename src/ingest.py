@@ -1,5 +1,11 @@
 """Ingest Banking FAQ docs into Chroma – 1 pair = 1 record."""
 
+import logging
+logger = logging.getLogger("uvicorn.error")
+
+# …later, instead of print():
+logger.info("Test logging from ingest.py")
+
 import shutil, os
 import uuid, re
 from pathlib import Path
