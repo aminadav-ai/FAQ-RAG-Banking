@@ -24,18 +24,6 @@ jobs:
               break
             fi
             sleep 10
-          done  
-      - name: Wait for Render faq-api
-        run: |
-          echo "Waiting for Render faq-api..."
-          for i in {1..60}; do
-            code=$(curl -s -o /dev/null -w "%{http_code}" https://faq-api-01l4.onrender.com/docs)
-            echo "Try $i: HTTP $code"
-            if [ "$code" = "200" ]; then
-              echo "faq-api is ready."
-              break
-            fi
-            sleep 10
           done          
       - name: Set up Python
         uses: actions/setup-python@v4
