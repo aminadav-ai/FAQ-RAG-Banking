@@ -42,12 +42,22 @@ jobs:
             sleep 3
           done
 
-      - name: Send test POST request to FastAPI
+      - name: Send test POST request to FastAPI and validate
         run: |
-          curl -X POST http://localhost:8000/query \
+          RESPONSE=$(curl -s -X POST http://localhost:8000/query \
             -H "Content-Type: application/json" \
-            -d '{"question": "What is APY?"}' \
-            -w "\nHTTP Code: %{http_code}\n"
+            -d '{"question": "What is APY?"}')
+
+          echo "Response: $RESPONSE"
+
+          ANSWER=$(echo "$RESPONSE" | jq -r '.answer')
+
+          if echo "$ANSWER" | grep -qi "APY"; then
+            echo "✅ Test passed: Answer contains 'APY'"
+          else
+            echo "❌ Test failed: Answer does not contain 'APY'"
+            exit 1
+          fi
             
       - name: Show Docker logs
         if: always()
