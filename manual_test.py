@@ -1,5 +1,10 @@
 # manual_test.py
 
+import logging
+
+logging.getLogger().setLevel(logging.WARNING)
+
+
 from src.query import fetch_answer
 
 while True:

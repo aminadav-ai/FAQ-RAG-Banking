@@ -5,15 +5,7 @@ import os
 import chromadb
 from src.utils_text import normalize
 
-# 🛠 Setup logging for both uvicorn & manual scripts
-if not logging.getLogger().hasHandlers():
-    logging.basicConfig(
-        level=logging.DEBUG,
-        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
-    )
-
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
 
 CHROMA_HOST = "chroma-server-cydq.onrender.com"
 CHROMA_PORT = 443
