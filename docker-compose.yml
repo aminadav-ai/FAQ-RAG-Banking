@@ -5,7 +5,7 @@ services:
     ports:
       - "8000:8000"  # FastAPI наружу
     environment:
-      COLLECTION_NAME: banking-faq
+      COLLECTION_NAME: "banking-faq"
       volumes:
       - .:/app
     command: >
