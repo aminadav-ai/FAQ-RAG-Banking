@@ -5,10 +5,17 @@ import os
 import chromadb
 from src.utils_text import normalize
 
-logger = logging.getLogger("uvicorn.error")
+# 🛠 Setup logging for both uvicorn & manual scripts
+if not logging.getLogger().hasHandlers():
+    logging.basicConfig(
+        level=logging.DEBUG,
+        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+    )
+
+logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
 
-CHROMA_HOST = "chroma-server-cvdq.onrender.com"
+CHROMA_HOST = "chroma-server-cydq.onrender.com"
 CHROMA_PORT = 443
 MAX_RETRIES = 30
 WAIT_SECONDS = 5
@@ -30,11 +37,9 @@ def wait_for_chroma():
                 port=CHROMA_PORT,
                 ssl=True
             )
-            collection_name = os.getenv("COLLECTION_NAME", "my-dev-faq")
-            collection = client.get_or_create_collection(collection_name)
             logger.debug(f"✅ Connected to ChromaDB on attempt {attempt}")
             return
-        except Exception as e:
+        except Exception as e:   
             logger.warning(f"⏳ Attempt {attempt}/{MAX_RETRIES} failed: {e}")
             time.sleep(WAIT_SECONDS)
 
@@ -44,9 +49,12 @@ def wait_for_chroma():
 
 def fetch_answer(question: str):
     global client, collection
-    if client is None or collection is None:
+    if client is None:
         wait_for_chroma()
 
+    collection_name = os.getenv("COLLECTION_NAME", "my-dev-faq")
+    logger.debug(f"📁 Using collection: {collection_name}")
+    collection = client.get_or_create_collection(collection_name)
     res = collection.query(
         query_texts=[normalize(question)],
         n_results=1,
