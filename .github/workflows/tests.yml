@@ -9,6 +9,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      COLLECTION_NAME: banking-faq
     steps:
       - uses: actions/checkout@v3
       - name: Wait for ChromaDB server
