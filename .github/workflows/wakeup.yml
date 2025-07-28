@@ -2,7 +2,8 @@ name: Wakeup FAQ-API
 
 on:
   schedule:
-    - cron: "*/14 * * * *"  # каждые 14 минут
+    - cron: "*/14 * * * *"  # 0, 14, 28, 42, 56
+    - cron: "7-59/14 * * * *"  # 7, 21, 35, 49
   workflow_dispatch:
 
 jobs:
