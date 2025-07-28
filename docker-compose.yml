@@ -5,8 +5,8 @@ services:
     ports:
       - "8000:8000"  # FastAPI наружу
     environment:
-      COLLECTION_NAME: "banking-faq"
-      volumes:
+      COLLECTION_NAME: 'banking-faq'
+    volumes:
       - .:/app
     command: >
       uvicorn src.api:app --host 0.0.0.0 --port 8000
