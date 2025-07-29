@@ -29,4 +29,5 @@ ENV USE_OPENAI=true
 #CMD bash -c "PYTHONPATH=./src python3 -m src.ingest && PYTHONPATH=./src python3 -m src.query"
 
 EXPOSE 8000
-CMD sh -c "chromadb --host 0.0.0.0 --port 8001 & uvicorn src.api:app --host 0.0.0.0 --port 8000 --log-level info"
+CMD sh -c "python3 -m chromadb.cli --host 0.0.0.0 --port 8001 & uvicorn src.api:app --host 0.0.0.0 --port 8000 --log-level info"
+
