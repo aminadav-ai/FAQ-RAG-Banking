@@ -4,6 +4,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import chromadb
 from src.utils_text import normalize
+import time
 
 load_dotenv()
 
