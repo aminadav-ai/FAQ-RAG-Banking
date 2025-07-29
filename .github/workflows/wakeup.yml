@@ -1,0 +1,16 @@
+name: Wakeup FAQ-API
+
+on:
+  schedule:
+    - cron: "*/14 * * * *"  # 0, 14, 28, 42, 56
+    - cron: "7-59/14 * * * *"  # 7, 21, 35, 49
+  workflow_dispatch:
+
+jobs:
+  wakeup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping faq-api
+        run: |
+          curl -X POST https://faq-api-01l4.onrender.com/query   -H "Content-Type: application/json"   -d '{"question": "What is APY?"}'
+
