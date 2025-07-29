@@ -11,8 +11,8 @@ logger = logging.getLogger("uvicorn.error")
 DATA_DIR = Path("data/raw")
 
 client = chromadb.HttpClient(
-    host="chroma-server-cydq.onrender.com",
-    port=443,
+    host="faq-api-01l4.onrender.com",
+    port=8001,
     ssl=True
 )
 

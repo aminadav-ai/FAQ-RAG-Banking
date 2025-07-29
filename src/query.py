@@ -14,8 +14,8 @@ SIMILARITY_THRESHOLD = float(os.getenv("SIMILARITY_THRESHOLD", "0.75"))
 
 logger = logging.getLogger(__name__)
 
-CHROMA_HOST = "chroma-server-cydq.onrender.com"
-CHROMA_PORT = 443
+CHROMA_HOST = "faq-api-01l4.onrender.com"
+CHROMA_PORT = 8001
 MAX_RETRIES = 30
 WAIT_SECONDS = 5
 

@@ -22,11 +22,11 @@ RUN pip install --upgrade pip \
 COPY . .
 
 # ---------- defaults ----------
-ENV USE_OPENAI=false
+ENV USE_OPENAI=true
 
 # Build vector store on first container start (if missing), then start CLI chat.
 # In production you might replace this with API startup (uvicorn).
 #CMD bash -c "PYTHONPATH=./src python3 -m src.ingest && PYTHONPATH=./src python3 -m src.query"
 
 EXPOSE 8000
-CMD ["uvicorn", "src.api:app", "--host", "0.0.0.0", "--port", "8000", "--log-level", "info"]
+CMD sh -c "chromadb --host 0.0.0.0 --port 8001 & uvicorn src.api:app --host 0.0.0.0 --port 8000 --log-level info"
