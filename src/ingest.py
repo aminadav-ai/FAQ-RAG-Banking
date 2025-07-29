@@ -1,18 +1,12 @@
-"""Ingest Banking FAQ docs into Chroma – 1 pair = 1 record."""
-
 import logging
-logger = logging.getLogger("uvicorn.error")
-
-# …later, instead of print():
-logger.info("Test logging from ingest.py")
-
-import shutil, os
-import uuid, re
+import shutil, os, uuid, re, json
 from pathlib import Path
 
 import chromadb
 from src.utils_text import normalize
 from src.embeddings import embed
+
+logger = logging.getLogger("uvicorn.error")
 
 DATA_DIR = Path("data/raw")
 
@@ -23,32 +17,49 @@ client = chromadb.HttpClient(
 )
 
 collection_name = os.getenv("COLLECTION_NAME", "my-dev-faq")
+
+# Clean slate — delete collection if it already exists
+for c in client.list_collections():
+    if c.name == collection_name:
+        client.delete_collection(name=collection_name)
+        break
+
+
 collection = client.get_or_create_collection(collection_name)
 
-PAIR_RE = re.compile(r"\n\s*\n")          
-
-def iter_pairs(text: str):
-    text = text.replace("\r\n", "\n")     
-    blocks = [b.strip() for b in PAIR_RE.split(text) if b.strip()]
-    for i in range(0, len(blocks) - 1, 2):          
-        q, a = blocks[i], blocks[i + 1]
-        yield q, a
-
 docs, metas, ids = [], [], []
-for raw, src in ((p.read_text("utf-8"), str(p))
-                 for p in DATA_DIR.rglob("*") if p.suffix.lower() in {".txt", ".md"}):
-    for q, a in iter_pairs(raw):
-        doc = normalize(f"{q} {a}")       
-        docs.append(doc)
-        metas.append({"answer": a, "source": src})
-        ids.append(str(uuid.uuid4()))
+
+for path in DATA_DIR.rglob("*.json"):
+    with path.open("r", encoding="utf-8") as f:
+        try:
+            data = json.load(f)
+            for entry in data:
+                q = entry.get("question", "").strip()
+                a = entry.get("answer", "").strip()
+                if q and a:
+                    doc = normalize(f"{q} {a}")
+                    docs.append(doc)
+                    metas.append({
+                        "answer": a,
+                        "question": q,
+                        "category": entry.get("category", ""),
+                        "source": str(path)
+                    })
+                    ids.append(str(uuid.uuid4()))
+        except Exception as e:
+            logger.error(f"Failed to load {path}: {e}")
 
 if docs:
-    collection.add(documents=docs,
-                   metadatas=metas,
-                   ids=ids,
-                   embeddings=embed(docs))
+    collection.add(
+        documents=docs,
+        metadatas=metas,
+        ids=ids,
+        embeddings=embed(docs)
+    )
     print(f"Indexed {len(docs)} Q&A pairs")
 else:
-    print(f"No files found in {DATA_DIR}")
+    print(f"No valid JSON files found in {DATA_DIR}")
+    
+total = collection.count()
+print(f"Total in collection: {total}")
 
