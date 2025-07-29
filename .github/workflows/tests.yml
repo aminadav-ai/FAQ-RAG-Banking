@@ -12,19 +12,7 @@ jobs:
     env:
       COLLECTION_NAME: banking-faq
     steps:
-      - uses: actions/checkout@v3
-      - name: Wait for ChromaDB server
-        run: |
-          echo "Waiting for ChromaDB /api/v2/heartbeat..."
-          for i in {1..20}; do
-            code=$(curl -s -o /dev/null -w "%{http_code}" https://chroma-server-cydq.onrender.com/api/v2/heartbeat)
-            echo "Try $i: HTTP $code"
-            if [ "$code" = "200" ]; then
-              echo "ChromaDB is ready."
-              break
-            fi
-            sleep 10
-          done          
+      - uses: actions/checkout@v3       
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
