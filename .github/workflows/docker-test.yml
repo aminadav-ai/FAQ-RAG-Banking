@@ -19,10 +19,11 @@ jobs:
           sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose --version
-
+      - name: Create .env file for container
+        run: |
+          echo "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}" >> .env   
       - name: Build and start services via docker-compose
         run: docker-compose up -d --build
-
       - name: Wait for FastAPI to be ready
         run: |
           echo "Waiting for FastAPI..."

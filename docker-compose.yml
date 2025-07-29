@@ -4,6 +4,8 @@ services:
     container_name: faq-api
     ports:
       - "8000:8000"  # FastAPI наружу
+    env_file:
+      - .env
     environment:
       COLLECTION_NAME: 'banking-faq'
     volumes:
