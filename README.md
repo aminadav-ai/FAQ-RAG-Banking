@@ -86,7 +86,7 @@ Create a `.env` file:
 
 ```
 OPENAI_API_KEY=sk-xxx
-MODEL=gpt-4o-mini
+OPENAI_MODEL=gpt-4o-mini
 ```
 
 ---

@@ -2,9 +2,7 @@
 # Quick commands for day‑to‑day development.
 #
 # Usage examples:
-#   make ingest          # rebuild vector store (MiniLM by default)
 #   make run             # launch CLI chat
-#   USE_OPENAI=true make ingest   # ingest with ada‑002
 #   make docker-build    # build container
 #   make docker-run      # run container interactively
 #   make api             # run fastAPI
@@ -18,25 +16,18 @@ IMG    = faq-rag
 
 help:
 	@echo "Targets:" && \
-	echo "  ingest        – rebuild Chroma vector store" && \
 	echo "  test          – run regression tests (qa_check)" && \
-	echo "  run           – CLI chat (MiniLM)" && \
-	echo "  run-openai    – CLI chat with OpenAI embeddings" && \
+	echo "  run           – CLI chat with OpenAI embeddings" && \
 	echo "  docker-build  – build Docker image '$(IMG)'" && \
 	echo "  docker-run    – run container interactively" && \
 	echo "  api           - run fastAPI"
 
-ingest:
-	$(PYPATH) $(PYTHON) -m src.ingest
 
 test:
 	$(PYPATH) $(PYTHON) -m tests.qa_check
 
 run:
-	$(PYPATH) $(PYTHON) -m src.query
-
-run-openai:
-	USE_OPENAI=true $(PYPATH) $(PYTHON) -m src.query
+	$(PYPATH) $(PYTHON) manual_test.py
 
 docker-build:
 	docker build -t $(IMG) .

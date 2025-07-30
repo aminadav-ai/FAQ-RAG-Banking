@@ -1,11 +1,6 @@
 .env
-vectordb/
-data/processed/
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
 *.sqlite
 .DS_Store
-venv/
-data/chroma_store/
-chroma-data/
