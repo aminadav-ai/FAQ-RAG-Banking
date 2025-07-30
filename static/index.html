@@ -37,7 +37,7 @@
         const data = await res.json();
         const end = performance.now();
         responseBox.innerHTML = "<strong>Answer:</strong><br>" + data.answer;
-        timing.textContent = `Took ${(end - start).toFixed(2)} ms`;
+        timing.textContent = `Took ${((end - start)/1000).toFixed(2)} sec`;
       } catch (err) {
         responseBox.textContent = "Error: " + err.message;
         timing.textContent = "";
