@@ -18,7 +18,7 @@ async def lifespan(app: FastAPI):
     
 app = FastAPI(title="FAQ‑RAG‑Banking API", version="1.0", lifespan=lifespan)
 
-app.mount("/static", StaticFiles(directory="static"), name="static"
+app.mount("/static", StaticFiles(directory="static"), name="static")
 @app.get("/")
 def read_index():
     return FileResponse(os.path.join("static", "index.html"))
