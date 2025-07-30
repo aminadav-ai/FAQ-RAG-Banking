@@ -5,6 +5,7 @@ logger.info("Test logging from api.py")
 
 from pydantic import BaseModel
 from fastapi import FastAPI, Query
+from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from src.query import fetch_answer
 from contextlib import asynccontextmanager
@@ -16,6 +17,11 @@ async def lifespan(app: FastAPI):
     logger.info("🛑 Lifespan shutdown")
     
 app = FastAPI(title="FAQ‑RAG‑Banking API", version="1.0", lifespan=lifespan)
+
+app.mount("/static", StaticFiles(directory="static"), name="static"
+@app.get("/")
+def read_index():
+    return FileResponse(os.path.join("static", "index.html"))
 
 app.add_middleware(
     CORSMiddleware,

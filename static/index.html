@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ask Banking AI</title>
+  <style>
+    body { font-family: sans-serif; padding: 2em; max-width: 600px; margin: auto; }
+    textarea { width: 100%; height: 100px; }
+    button { margin-top: 1em; padding: 10px 20px; }
+    #response { margin-top: 1em; background-color: #f2f2f2; padding: 1em; border-radius: 8px; }
+  </style>
+</head>
+<body>
+  <h1>Ask Banking AI</h1>
+  <p>Type your question below:</p>
+  <textarea id="question" placeholder="e.g., What is compound interest?"></textarea><br>
+  <button onclick="submitQuestion()">Ask</button>
+  <div id="response"></div>
+  <p id="timing" style="color: gray; font-size: 0.9em;"></p>
+
+  <script>
+    async function submitQuestion() {
+      const question = document.getElementById("question").value;
+      const responseBox = document.getElementById("response");
+      const timing = document.getElementById('timing');
+      responseBox.textContent = "Thinking...";
+      timing.textContent = "";
+      const start = performance.now();
+
+      try {
+        const res = await fetch("https://faq-api-01l4.onrender.com/query", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ question: question })
+        });
+
+        const data = await res.json();
+        const end = performance.now();
+        responseBox.innerHTML = "<strong>Answer:</strong><br>" + data.answer;
+        timing.textContent = `Took ${(end - start).toFixed(2)} ms`;
+      } catch (err) {
+        responseBox.textContent = "Error: " + err.message;
+        timing.textContent = "";
+      }
+    }
+  </script>
+</body>
+</html>
+

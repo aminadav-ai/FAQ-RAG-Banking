@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-OPENAI_MODEL = os.getenv("OPENAI_MODEL", "gpt-4o")
 
 logger = logging.getLogger(__name__)
 
@@ -22,11 +21,12 @@ Answer:"""
     client = OpenAI(api_key=OPENAI_API_KEY)
 
     response = client.chat.completions.create(
-        model=OPENAI_MODEL,
+        model="gpt-4o-mini",
         messages=[
             {"role": "user", "content": prompt.strip()}
         ],
-        temperature=0.0
+        temperature=0.5,
+        max_tokens=300
     )
 
     return response.choices[0].message.content.strip()
