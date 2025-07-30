@@ -6,6 +6,7 @@ logger.info("Test logging from api.py")
 from pydantic import BaseModel
 from fastapi import FastAPI, Query
 from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from src.query import fetch_answer
 from contextlib import asynccontextmanager
