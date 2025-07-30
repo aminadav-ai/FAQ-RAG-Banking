@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Last Commit](https://img.shields.io/github/last-commit/aminadav-ai/FAQ-RAG-Banking.svg)](https://github.com/aminadav-ai/FAQ-RAG-Banking/commits/main)
 
-🚀 **Live demo:** [Ask Banking AI on Render](https://faq-api-014l.onrender.com)
+🚀 **Live demo:** [Ask Banking AI on Render](https://faq-api-01l4.onrender.com)
 
 ---
 
