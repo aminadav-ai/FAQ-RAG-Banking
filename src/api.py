@@ -10,6 +10,7 @@ from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from src.query import fetch_answer
 from contextlib import asynccontextmanager
+import os
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
