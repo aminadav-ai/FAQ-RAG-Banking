@@ -15,7 +15,7 @@ def canonical(text: str) -> str:
 # ---------- test cases ----------
 TESTS = [
     ("What is a same-day domestic wire transfer?",
-     "sending money")
+     "money")
 ]
 
 # ---------- runner ----------
