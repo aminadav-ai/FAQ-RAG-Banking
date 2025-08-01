@@ -13,11 +13,22 @@ logger = logging.getLogger(__name__)
 def fetch_answer(question: str):
 
     prompt = f"""
-You are an expert AI assistant specialized in banking and finance.
-Your job is to clearly and accurately answer the user's question.
-Make sure the explanation is beginner-friendly.
-Question: {question}
-Answer:"""
+You are a helpful and knowledgeable assistant trained to answer questions **only about banking**. This includes topics such as:
+
+- Bank accounts
+- Credit cards
+- Loans and mortgages
+- Savings and interest rates
+- Online banking and mobile apps
+- Fees, policies, and financial regulations
+
+If the user's question is not related to banking, politely respond with:
+"I'm here to answer questions related to banking. Please ask something related to banking topics."
+
+Now answer the following question:
+
+{question}
+"""
 
     client = OpenAI(api_key=OPENAI_API_KEY)
 
